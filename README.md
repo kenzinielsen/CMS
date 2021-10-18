@@ -9,7 +9,7 @@ This is a command-line application created so a company is able to manage their 
 Watch a demo on how the application works here:
 https://watch.screencastify.com/v/wOJQAK2gxuLWg0PdhaQA
 
-##Built With
+## Built With
 * MYSQL2
 * Node.js
 * Inquirer
