@@ -9,8 +9,6 @@ connection.connect(function(){
     questions();
 })
 
-
-
 const questions = () => {
     inquirer.prompt([
         {
@@ -39,11 +37,11 @@ const questions = () => {
             viewDeparments();
             break;
   
-          case "View employees":
+          case "View all employees":
             viewEmployees();
             break;
   
-          case "View a role":
+          case "View all roles":
             viewRoles();
             break;
   
@@ -83,6 +81,35 @@ function addRole() {
      })
 }
 
+function addEmployee() {
+    inquirer.prompt([{
+        type: 'input',
+        name: 'first_name',
+        message: 'What is the first name of the new employee?'
+    },
+    {
+        type: 'input',
+        name:'last_name',
+        message: 'What is the last name of the new employee?'
+    },
+    {
+        type: 'input',
+        name: 'role_id',
+        message: 'What is role id?'
+    },
+    {
+        type: 'input',
+        name: 'manager_id',
+        message: 'Who is the manager?'
+    }
+    ]).then(function(answers){
+        connection.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES('${answers.first}', '${answers.last}', '${answers.role_id}','${answers.manager_id}')`, function(err, data) {
+            console.log('Your new employee has been added')
+            questions();
+        })
+    })
+}
+
 
 function addDepartment() {
      inquirer.prompt({
@@ -96,8 +123,6 @@ function addDepartment() {
            questions();
        })
      })
-
- 
 }
 
 function viewDeparments() {
@@ -106,3 +131,18 @@ function viewDeparments() {
        questions();
     })
 }
+
+function viewRoles() {
+    connection.query('SELECT * FROM roles', function(err, data){
+       console.table(data)
+       questions();
+    })
+}
+
+function viewEmployees() {
+    connection.query('SELECT * FROM employee', function(err, data){
+       console.table(data)
+       questions();
+    })
+}
+
