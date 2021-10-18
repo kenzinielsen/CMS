@@ -44,6 +44,10 @@ const questions = () => {
           case "View all roles":
             viewRoles();
             break;
+
+          case "Update an employee role":
+          updateRoles();
+          break;
   
         }
     });
@@ -82,6 +86,14 @@ function addRole() {
 }
 
 function addEmployee() {
+    connection.query('SELECT * FROM employee', function(err, data) {
+        const allEmployee = data.map(employee => {
+            return{
+                name: employee.name,
+                value: employee.id
+                }
+            })
+
     inquirer.prompt([{
         type: 'input',
         name: 'first_name',
@@ -108,6 +120,7 @@ function addEmployee() {
             questions();
         })
     })
+})
 }
 
 
@@ -144,5 +157,9 @@ function viewEmployees() {
        console.table(data)
        questions();
     })
+}
+
+function updateRoles() {
+    connection.query(`SELECT * FROM `)
 }
 
